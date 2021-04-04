@@ -14618,6 +14618,14 @@ c     rho0 - reference density (kg/m^3)
       f_a = p_fun(a,rho,e,dvol_v0,rho0)
       f_b = p_fun(b,rho,e,dvol_v0,rho0)
       if (sign(1.,f_a) .eq. sign(1.,f_b)) then
+        if (f_a .lt. tol) then
+          Pres=a
+          return
+        elseif (f_b .lt. tol) then
+          Pres=b
+          return
+
+        endif
         Print *, 'Invalid bisection bracketing',a,b, rho,e,dvol_v0,rho0
         Print *, 'funs',f_a,f_b
         Pres=(a+b)/2
